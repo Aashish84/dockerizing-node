@@ -1,0 +1,48 @@
+FROM node:14
+WORKDIR /app
+COPY package.json .
+RUN npm install
+COPY . ./
+EXPOSE 5000
+CMD ["npm" , "run", "dev"]
+
+ls
+
+####
+docker stop <container_name>
+docker start <container_name>
+
+[image]
+docker image ls						[shows all image]
+docker image rm <image_ID>			[delete image]
+docker build -t <Image_name> .		[build image]
+
+[container]
+docker ps								[display running container]
+docker ps -a							[display all container]
+docker container ls --all				[display all container]
+docker rm <container_Name>	-fv			[remove container]
+docker exec -it <container_name> bash -> 'exit' to exit from bash
+cat <app.js>
+touch testfile [create new file on bash]
+
+	[create new container and run]
+	
+docker run -d --name <container_name> <Image_Name>
+	
+docker run -p 5001:5000 -d --name <container_name> <Image_Name>	[then localhost:5001]
+
+docker run -v <path_to_folder>:<path_of_container>	" "			['volume flag' ${pwd}->powershell %cd%->cmd $(pwd)->mac/linux]
+
+docker run " -v /app/node_module " "							['volume flag' restrict copy of node_module into workdir /app because of line 5 ]
+
+docker run -v <path_to_folder>:<path_of_container>:ro	" "		[read only , 'touch file' not showing on local ]
+
+docker run -v ${pwd}:/app -v /app/node_modules --env PORT=4000 -p 5000:4000 -d --name node-cnt node-app [set env variable]
+
+docker run -v ${pwd}:/app -v /app/node_modules --env-file ./.env -p 5000:4000 -d --name node-cnt node-app [set env variable alternative]
+
+
+docker volume ls
+docker volume prune [or -fv during container removal to delete associated volume]
+
